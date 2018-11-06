@@ -40,3 +40,37 @@ public boolean wordPatternMatch(String pattern, String str) {
             return false;
         }
     }
+===============================================
+public boolean wordPatternMatch(String pattern, String str){
+	Map<Character, String> map = new HashMap<>();
+	return dfs(pattern, str, map);
+}
+public boolean dfs(String pattern, String str, Map<Character, String> map){
+	if(pattern.length() == 0 && str.length() == 0){
+		return true;
+	}else if(pattern.length() == 0 || str.length() == 0){
+		return false;
+	}
+	char ch = pattern.charAt(0);
+	if(map.containsKey(ch)){
+		String target = map.get(ch);
+		if(str.indexOf(target) != 0){
+			return false;
+		}else{
+			return dfs(pattern.substring(1), str.substring(target.length()), map);
+		}
+	}else{
+		//boolean result = false;
+		for(int i = 1; i <= str.length(); i++){
+			String target = str.substring(0, i);
+			if(!map.containsValue(target)){
+				map.put(ch, target);
+				if(dfs(pattern.substring(1), str.substring(i), map)){
+					return true;
+				}
+				map.remove(ch);
+			}
+		}
+		return false;
+	}
+}

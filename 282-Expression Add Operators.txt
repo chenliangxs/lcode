@@ -59,5 +59,47 @@ public List<String> addOperators(String num, int target) {
                 path.setLength(len);
             }
         }
-        
     }
+
+==============================================
+
+public List<String> addOperators(String num, int target){
+	List<String> res = new ArrayList<>();
+	StringBuilder path = new StringBuilder();
+	int index = 0;
+	long val = 0;
+	long pre = 0;
+	dfs(index, num, val, pre, path, res, (long) target);
+	return res;
+}
+public void dfs(int index, String num, long val, long pre, StringBuilder path, List<String> res, long target){
+	if(index == num.length() && val == target){
+		res.add(path.toString());
+		return;
+	}
+	for(int i = index + 1; i <= num.length(); i++){
+		String next = num.substring(index, i);
+		if(next.length() > 1 && next.charAt(0) == '0') return;
+		else{
+			int curLen = path.length();
+			long n = Long.parseLong(next);
+			if(index == 0){
+				path.append(next);
+				dfs(i, num, n, n, path, res, target);
+				path.setLength(curLen);
+			}else{
+				//plus
+				path.append('+');
+				path.append(next);
+				dfs(i, num, val + n, n, path, res, target);
+				//minus
+				path.setCharAt(curLen, '-');
+				dfs(i, num, val - n, -1*n, path, res, target);
+				//product
+				path.setCharAt(curLen, '*');
+				dfs(i, num, val - pre + pre * n, pre * n, path, res, target);
+				path.setLength(curLen);
+			}
+		}
+	}
+}
