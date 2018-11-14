@@ -42,3 +42,33 @@ public int minCostII(int[][] costs) {
         }
         return finalMin;
     }
+
+O(nk)
+
+public int minCostII(int[][] costs) {
+        if(costs.length == 0 || costs[0].length == 0) return 0;
+        int m = costs.length;
+        int n = costs[0].length;
+        int colorOne = -1;
+        int colorTwo = -1;
+        for(int i = 0; i < m; i++){
+            int preColorOne = colorOne;
+            int preColorTwo = colorTwo;
+            colorOne = -1;
+            colorTwo = -1;
+            for(int j = 0; j < n; j++){
+                if(j == preColorOne){
+                    costs[i][j] = (i > 0 ? costs[i-1][preColorTwo] : 0) + costs[i][j];
+                }else{
+                    costs[i][j] = (i > 0 ? costs[i-1][preColorOne] : 0) + costs[i][j];
+                }
+                if(colorOne == -1 || costs[i][j] <= costs[i][colorOne]){
+                    colorTwo = colorOne;
+                    colorOne = j;
+                }else if(colorTwo == -1 || costs[i][j] < costs[i][colorTwo]){
+                    colorTwo = j;
+                }
+            }
+        }
+        return costs[m - 1][colorOne];
+    }
