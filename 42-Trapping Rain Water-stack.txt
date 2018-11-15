@@ -30,3 +30,20 @@ public int trap(int[] height) {
         }
         return count;
     }
+
+
+public int trap(int[] height) {
+        int total = 0;
+        Deque<Integer> stack = new ArrayDeque<>();
+        for(int i = 0; i < height.length; i++){
+            int curHeight = height[i];
+            while(!stack.isEmpty() && curHeight >= height[stack.peekFirst()]){
+                int baseHeight = height[stack.pollFirst()];
+                if(!stack.isEmpty()){
+                    total += (Math.min(height[stack.peekFirst()], curHeight) - baseHeight) * (i - stack.peekFirst() - 1);
+                }
+            }
+            stack.offerFirst(i);
+        }
+        return total;
+    }
