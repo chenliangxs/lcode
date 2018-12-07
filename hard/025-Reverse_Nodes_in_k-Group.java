@@ -23,28 +23,28 @@ You may not alter the values in the list's nodes, only nodes itself may be chang
 
 
 public ListNode reverseKGroup(ListNode head, int k) {
-  ListNode dummy = new ListNode(0);
-  ListNode p = head;
-  int n = k;
-  while(n > 1 && p != null){
-    p = p.next;
-    n--;
-  }
-  if(p == null) return head;
-  ListNode next = p.next;
-  p.next = null;
-  dummy.next = reverse(head);
-  head.next = reverseKGroup(next, k);
-  return dummy.next;
+    ListNode dummy = new ListNode(0);
+    ListNode p = head;
+    int n = k;
+    while(n > 1 && p != null){
+        p = p.next;
+        n--;
+    }
+    if(p == null) return head;
+    ListNode next = p.next;
+    p.next = null;
+    dummy.next = reverse(head);
+    head.next = reverseKGroup(next, k);
+    return dummy.next;
 }
 public ListNode reverse(ListNode head){
-  ListNode pre = null;
-  ListNode cur = head;
-  while(cur != null){
-    ListNode next = cur.next;
-    cur.next = pre;
-    pre = cur;
-    cur = next;
-  }
-  return pre;
+    ListNode pre = null;
+    ListNode cur = head;
+    while(cur != null){
+        ListNode next = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = next;
+    }
+    return pre;
 }
