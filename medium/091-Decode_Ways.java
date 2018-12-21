@@ -21,42 +21,31 @@ Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 **/
 
 public int numDecodings(String s) {
-	if(s.length() == 0) {
-		return 0;
-	}
-	int[] res = new int[]{0};
-	char[] chs = s.toCharArray();
-	dfs(0, chs, res);
-	return res[0];
+    if(s.length() == 0) {
+        return 0;
+    }
+    int n = s.length();
+    char[] chs = s.toCharArray();
+    int[] count = new int[n + 1];
+    count[0] = 1;
+    for(int i = 1; i <= n; i++) {
+        if(i == 1) {
+            if(chs[i - 1] == '0') {
+                return 0;
+            } else {
+                count[i] = 1;
+            }
+        } else {
+            if(chs[i - 1] == '0' && (chs[i - 2] > '2' || chs[i - 2] == '0')) {
+                return 0;
+            }
+            if(chs[i - 1] > '0') {
+                count[i] += count[i - 1];
+            }
+            if(chs[i - 2] == '1' || (chs[i - 2] == '2' && chs[i - 1] < '7')) {
+                count[i] += count[i - 2];
+            }
+        }
+    }
+    return count[n];
 }
-public void dfs(int index, char[] chs, int[] res){
-	if(index >= chs.length) {
-		res[0]++;
-		return;
-	}
-	if(chs[index] != '0') {
-		dfs(index + 1, chs, res);
-		if(chs[index] < '3' && index < chs.length - 1 && chs[index + 1] < '7') {
-			dfs(index + 1, chs, res);
-		}
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
