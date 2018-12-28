@@ -17,25 +17,33 @@ Follow up: For C programmers, try to solve it in-place in O(1) space.
 
 public String reverseWords(String s) {
     char[] chs = s.toCharArray();
-    int left = 0;
+    int index = 0;
     int right = 0;
-    int cur = 0;
     while(right < chs.length) {
-        if(right > 0chs[right] != ' '|| chs[right - 1] != ' ')
-        if(right > 0 && chs[right] == ' ' && chs[right - 1] != ' ') {
-            reverse(left, right - 1, chs);
-        } else if(right > 0 && chs[right] != ' ' && chs[right - 1] == ' '){
-            left = right;
+        if(chs[right] != ' ' || (right < chs.length - 1 && chs[right + 1] != ' ')) {
+            chs[index++] = chs[right++];
         } else {
             right++;
         }
     }
-    reverse(0, chs.length - 1);
-
+    int left = 0;
+    right = 0;
+    while(right < index) {
+        if(right > 0 && chs[right] == ' ' && chs[right - 1] != ' ') {
+            reverse(left, right - 1, chs);
+        } else if(right > 0 && chs[right] != ' ' && chs[right - 1] == ' '){
+            left = right;
+        }
+        right++;
+    }
+    reverse(left, right - 1, chs);
+    reverse(0, index - 1, chs);
+    String res = new String(chs, 0, index);
+    return res.trim();
 }
 public void reverse(int left, int right, char[] chs) {
     while(left <= right) {
-        char[] tmp = chs[left];
+        char tmp = chs[left];
         chs[left] = chs[right];
         chs[right] = tmp;
         left++;
