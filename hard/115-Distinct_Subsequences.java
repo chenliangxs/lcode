@@ -1,3 +1,4 @@
+/**
 Given a string S and a string T, count the number of distinct subsequences of S which equals T.
 
 A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not).
@@ -40,7 +41,7 @@ babgbag
 
 s: a b c d
        i
-p: A B 
+p: A B
         j
 dp[i][j]: count at si, pj.
 
@@ -48,7 +49,7 @@ dp[i][j]
 1. s[i] == p[j]: dp[i][j] = dp[i-1][j-1] + dp[i-1][j]
 2. s[i] != p[j]: dp[i][j] = dp[i-1][j]
 =================================================
-
+**/
 public int numDistinct(String s, String t) {
         if(s.length() < t.length()) return 0;
         int m = s.length();

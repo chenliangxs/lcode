@@ -1,9 +1,10 @@
+/**
 Given a non-empty binary search tree and a target value, find k values in the BST that are closest to the target.
 
 Note:
 
 Given target value is a floating point.
-You may assume k is always valid, that is: k ¡Ü total nodes.
+You may assume k is always valid, that is: k ï¿½ï¿½ total nodes.
 You are guaranteed to have only one unique set of k values in the BST that are closest to the target.
 Example:
 
@@ -18,11 +19,11 @@ Input: root = [4,2,5,1,3], target = 3.714286, and k = 2
 Output: [4,3]
 
 =========================================
-
+**/
 public List<Integer> closestKValues(TreeNode root, double target, int k) {
 	List<Integer> res = new LinkedList<>();
 	if(k == 0 || root == null) return res;
-	TreeNode p = root;      
+	TreeNode p = root;
 	Deque<TreeNode> stack = new ArrayDeque<>();
 	while(!stack.isEmpty() || p != null){
 		while(p != null){

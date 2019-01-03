@@ -1,3 +1,4 @@
+/**
 Given two arrays of length m and n with digits 0-9 representing two numbers. Create the maximum number of length k <= m + n from digits of the two. The relative order of the digits from the same array must be preserved. Return an array of the k digits.
 
 Note: You should try to optimize your time and space complexity.
@@ -26,8 +27,7 @@ nums2 = [8, 9]
 k = 3
 Output:
 [9, 8, 9]
-
-====================================================
+**/
 
 public int[] maxNumber(int[] nums1, int[] nums2, int k) {
         int m = nums1.length;
@@ -85,5 +85,5 @@ public int[] maxNumber(int[] nums1, int[] nums2, int k) {
             x++;
             y++;
         }
-        return y == B.length || (x < A.length && A[x] > B[y]); 
+        return y == B.length || (x < A.length && A[x] > B[y]);
     }

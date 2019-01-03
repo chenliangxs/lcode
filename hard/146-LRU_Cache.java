@@ -1,3 +1,4 @@
+/**
 Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
 
 get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
@@ -8,7 +9,7 @@ Could you do both operations in O(1) time complexity?
 
 Example:
 
-LRUCache cache = new LRUCache( 2 /* capacity */ );
+LRUCache cache = new LRUCache( 2 capacity );
 
 cache.put(1, 1);
 cache.put(2, 2);
@@ -21,6 +22,7 @@ cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 
 ===================================================
+**/
 
 class LRUCache {
 
@@ -29,7 +31,7 @@ class LRUCache {
     Map<Integer, Node> map;
     Node head;
     Node tail;
-    
+
     public LRUCache(int capacity) {
         this.capacity = capacity;
         count = 0;
@@ -39,7 +41,7 @@ class LRUCache {
         head.right = tail;
         tail.left = head;
     }
-    
+
     public int get(int key) {
         if(map.containsKey(key)){
             Node cur = map.get(key);
@@ -57,7 +59,7 @@ class LRUCache {
             return -1;
         }
     }
-    
+
     public void put(int key, int value) {
         if(map.containsKey(key)){
             Node cur = map.get(key);

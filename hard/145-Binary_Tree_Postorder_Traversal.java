@@ -1,3 +1,4 @@
+/**
 Given a binary tree, return the postorder traversal of its nodes' values.
 
 Example:
@@ -13,6 +14,7 @@ Output: [3,2,1]
 Follow up: Recursive solution is trivial, could you do it iteratively?
 
 ======================================================
+**/
 
 public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
@@ -31,7 +33,7 @@ public List<Integer> postorderTraversal(TreeNode root) {
             }
             if((cur.left == null || visited.contains(cur.left)) && (cur.right == null || visited.contains(cur.right))){
                 res.add(cur.val);
-                
+
                 visited.add(stack.pollFirst());
             }
         }

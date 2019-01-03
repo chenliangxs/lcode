@@ -1,3 +1,4 @@
+/**
 Given a string s, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
 
 Example 1:
@@ -13,6 +14,7 @@ Output: "dcbabcd"
 from 0 position, longest palidrome
 
 =======================================
+**/
 
 public String shortestPalindrome(String s) {
         char[] chs = s.toCharArray();

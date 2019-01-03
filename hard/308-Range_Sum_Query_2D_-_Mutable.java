@@ -1,3 +1,5 @@
+
+/**
 Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
 
 Range Sum Query 2D
@@ -18,15 +20,15 @@ sumRegion(2, 1, 4, 3) -> 10
 Note:
 The matrix is only modifiable by the update function.
 You may assume the number of calls to update and sumRegion function is distributed evenly.
-You may assume that row1 ¡Ü row2 and col1 ¡Ü col2.
+You may assume that row1 ï¿½ï¿½ row2 and col1 ï¿½ï¿½ col2.
 
 ==============================================
-
+**/
 class NumMatrix {
-    
+
     int[][] matrix;
     int[][] sumMatrix;
-    
+
     public NumMatrix(int[][] matrix) {
         this.matrix = matrix;
         if(matrix.length > 0 && matrix[0].length > 0){
@@ -34,7 +36,7 @@ class NumMatrix {
             initial();
         }
     }
-    
+
     void initial(){
         int m = matrix.length;
         int n = matrix[0].length;
@@ -46,7 +48,7 @@ class NumMatrix {
             }
         }
     }
-    
+
     public void update(int row, int col, int val) {
         if(matrix.length == 0 || matrix[0].length == 0) return;
         int diff = val - matrix[row][col];
@@ -55,7 +57,7 @@ class NumMatrix {
             sumMatrix[row][j] += diff;
         }
     }
-    
+
     public int sumRegion(int row1, int col1, int row2, int col2) {
         if(matrix.length == 0 || matrix[0].length == 0) return 0;
         int total = 0;
