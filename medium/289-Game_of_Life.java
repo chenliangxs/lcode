@@ -1,3 +1,5 @@
+/**
+
 1 (<2) -> 0
 1 (2,3) -> 1
 1 (>3) -> 0
@@ -6,7 +8,7 @@
 1 -> 3 : die after, but now is 1
 0 -> 2: live after, but now is 0
 1 -> 1: live after, but now is 1
-0 -> 0: die after, but now is 0  
+0 -> 0: die after, but now is 0
 
 
 According to the Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
@@ -21,14 +23,14 @@ Write a function to compute the next state (after one update) of the board given
 
 Example:
 
-Input: 
+Input:
 [
   [0,1,0],
   [0,0,1],
   [1,1,1],
   [0,0,0]
 ]
-Output: 
+Output:
 [
   [0,0,0],
   [1,0,1],
@@ -38,35 +40,37 @@ Output:
 
 =============================================================================
 
+**/
+
 public void gameOfLife(int[][] board) {
-        int[] dirs = {0,1, 0,-1, 1,0, -1,0, 1,-1, 1,1, -1,-1, -1,1};
-        int m = board.length;
-        int n = board[0].length;
-        for(int i = 0; i < board.length; i++){
-            for(int j=0; j < board[0].length; j++){
-                int count = 0;
-                for(int d = 0; d < dirs.length; d+=2){
-                    int row = i + dirs[d];
-                    int col = j + dirs[d+1];
-                    if(row >=0 && row < m && col >=0 && col < n){
-                        if(board[row][col] % 2 == 1){
-                            count++;
-                        }
+    int[] dirs = {0,1, 0,-1, 1,0, -1,0, 1,-1, 1,1, -1,-1, -1,1};
+    int m = board.length;
+    int n = board[0].length;
+    for(int i = 0; i < board.length; i++){
+        for(int j=0; j < board[0].length; j++){
+            int count = 0;
+            for(int d = 0; d < dirs.length; d+=2){
+                int row = i + dirs[d];
+                int col = j + dirs[d+1];
+                if(row >=0 && row < m && col >=0 && col < n){
+                    if(board[row][col] % 2 == 1){
+                        count++;
                     }
                 }
-                if(board[i][j] == 1){
-                    if(count < 2) board[i][j] = 3;
-                    else if(count == 2 || count == 3) board[i][j] = 1;
-                    else board[i][j] = 3;
-                }else{
-                    if(count == 3) board[i][j] = 2;
-                    else board[i][j] = 0;
-                }
             }
-        }
-        for(int i = 0; i<m; i++){
-            for(int j=0; j<n; j++){
-                board[i][j] = (board[i][j] == 3 || board[i][j] == 0) ? 0 : 1;
+            if(board[i][j] == 1){
+                if(count < 2) board[i][j] = 3;
+                else if(count == 2 || count == 3) board[i][j] = 1;
+                else board[i][j] = 3;
+            }else{
+                if(count == 3) board[i][j] = 2;
+                else board[i][j] = 0;
             }
         }
     }
+    for(int i = 0; i<m; i++){
+        for(int j=0; j<n; j++){
+            board[i][j] = (board[i][j] == 3 || board[i][j] == 0) ? 0 : 1;
+        }
+    }
+}
