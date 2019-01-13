@@ -7,13 +7,13 @@ Example 1:
 
 Input: [[1,1],2,[1,1]]
 Output: [1,1,2,1,1]
-Explanation: By calling next repeatedly until hasNext returns false, 
+Explanation: By calling next repeatedly until hasNext returns false,
              the order of elements returned by next should be: [1,1,2,1,1].
 Example 2:
 
 Input: [1,[4,[6]]]
 Output: [1,4,6]
-Explanation: By calling next repeatedly until hasNext returns false, 
+Explanation: By calling next repeatedly until hasNext returns false,
              the order of elements returned by next should be: [1,4,6].
 **/
 
@@ -34,22 +34,37 @@ Explanation: By calling next repeatedly until hasNext returns false,
  *     public List<NestedInteger> getList();
  * }
  */
-public class NestedIterator implements Iterator<Integer> {
+ public class NestedIterator implements Iterator<Integer> {
 
-    public NestedIterator(List<NestedInteger> nestedList) {
-        
-    }
+     Deque<NestedInteger> stack;
 
-    @Override
-    public Integer next() {
-        
-    }
+     public NestedIterator(List<NestedInteger> nestedList) {
+         stack = new ArrayDeque<>();
+         for(int i = nestedList.size() - 1; i >= 0; i--) {
+             stack.offerFirst(nestedList.get(i));
+         }
+     }
 
-    @Override
-    public boolean hasNext() {
-        
-    }
-}
+     @Override
+     public Integer next() {
+         return stack.pollFirst().getInteger();
+     }
+
+     @Override
+     public boolean hasNext() {
+         if(stack.isEmpty()) {
+             return false;
+         }
+         while(!stack.isEmpty() && !stack.peekFirst().isInteger()) {
+             NestedInteger cur = stack.pollFirst();
+             List<NestedInteger> l = cur.getList();
+             for(int i = l.size() - 1; i >= 0 ; i--) {
+                 stack.offerFirst(l.get(i));
+             }
+         }
+         return !stack.isEmpty();
+     }
+ }
 
 /**
  * Your NestedIterator object will be instantiated and called as such:
