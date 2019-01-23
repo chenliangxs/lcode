@@ -13,3 +13,21 @@ Output: 28
 
 Explanation: The maximum result is 5 ^ 25 = 28.
 **/
+
+public int findMaximumXOR(int[] nums) {
+	int res = 0;
+	int mask = 0;
+	for(int i = 31; i >= 0 ; i--) {
+		mask |= (1 << i);
+		Set<Integer> set = new HashSet<>();
+		int goal = res | (1 << i);
+		for(int n : nums) {
+			set.add((mask & n));
+			if(set.contains(goal ^ (mask & n))) {
+				res |= goal;
+				break;
+			}
+		}
+	}
+	return res;
+}
