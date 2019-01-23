@@ -24,3 +24,17 @@ Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0
 **/
 
 
+public boolean find132pattern(int[] nums) {
+    Deque<Integer> stack = new ArrayDeque<>();
+    int third = Integer.MIN_VALUE;
+    for(int i = nums.length - 1; i >= 0 ; i--) {
+        if(nums[i] < third) {
+            return true;
+        }
+        while(!stack.isEmpty() && nums[i] > stack.peekFirst()) {
+            third = stack.pollFirst();
+        }
+        stack.offerFirst(nums[i]);
+    }
+    return false;
+}
