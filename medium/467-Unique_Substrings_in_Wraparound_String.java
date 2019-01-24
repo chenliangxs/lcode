@@ -19,3 +19,32 @@ Input: "zab"
 Output: 6
 Explanation: There are six substrings "z", "a", "b", "za", "ab", "zab" of string "zab" in the string s.
 **/
+
+public int findSubstringInWraproundString(String p) {
+	int[] count = new int[26];
+	char[] chs = p.toCharArray();
+	int len = 1;
+	for(int i = 0; i < chs.length; i++) {
+		if(i > 0 && isContinue(chs, i - 1, i)) {
+			len++;
+		} else {
+			len = 1;
+		}
+		count[chs[i] - 'a'] = Math.max(count[chs[i] - 'a'], len);
+	}
+	
+	int total = 0;
+	for(int i = 0; i < 26; i++) {
+		total += count[i];
+	}
+	return total;
+}
+public boolean isContinue(char[] chs, int i, int j) {
+	if(chs[j] - chs[i] == 1) {
+		return true;
+	}
+	if(chs[j] == 'a') {
+		return chs[i] == 'z';
+	}
+	return false;
+}
