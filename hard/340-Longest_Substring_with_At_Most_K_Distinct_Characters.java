@@ -1,3 +1,4 @@
+/**
 Given a string, find the length of the longest substring T that contains at most k distinct characters.
 
 Example 1:
@@ -11,7 +12,7 @@ Input: s = "aa", k = 1
 Output: 2
 Explanation: T is "aa" which its length is 2.
 
-=================================================
+**/
 
 public int lengthOfLongestSubstringKDistinct(String s, int k) {
         if(s.length() == 0 || k == 0) return 0;
