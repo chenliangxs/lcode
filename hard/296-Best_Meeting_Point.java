@@ -22,39 +22,39 @@ Explanation: Given three people living at (0,0), (0,4), and (2,2):
 1 0 1 0 0 1
 **/
 public int minTotalDistance(int[][] grid) {
-        int sum = 0;
-        int m = grid.length;
-        int n = grid[0].length;
-        int[] vertical = new int[m];
-        int[] horizontal = new int[n];
-        for(int i = 0; i < m; i++){
-            int total = 0;
-            for(int j = 0; j < n; j++){
-                if(grid[i][j] == 1) total++;
-            }
-            vertical[i] = total;
-        }
+    int sum = 0;
+    int m = grid.length;
+    int n = grid[0].length;
+    int[] vertical = new int[m];
+    int[] horizontal = new int[n];
+    for(int i = 0; i < m; i++){
+        int total = 0;
         for(int j = 0; j < n; j++){
-            int total = 0;
-            for(int i = 0; i < m; i++){
-                if(grid[i][j] == 1) total++;
-            }
-            horizontal[j] = total;
+            if(grid[i][j] == 1) total++;
         }
-        sum += get1DMinDistance(vertical);
-        sum += get1DMinDistance(horizontal);
-        return sum;
+        vertical[i] = total;
     }
-    public int get1DMinDistance(int[] array){
-        int res = Integer.MAX_VALUE;
-        for(int i = 0; i < array.length; i++){
-            int total = 0;
-            for(int j = 0; j < array.length; j++){
-                if(array[j] != 0){
-                    total += (array[j] * (Math.abs(j - i)));
-                }
-            }
-            res = Math.min(res, total);
+    for(int j = 0; j < n; j++){
+        int total = 0;
+        for(int i = 0; i < m; i++){
+            if(grid[i][j] == 1) total++;
         }
-        return res;
+        horizontal[j] = total;
     }
+    sum += get1DMinDistance(vertical);
+    sum += get1DMinDistance(horizontal);
+    return sum;
+}
+public int get1DMinDistance(int[] array){
+    int res = Integer.MAX_VALUE;
+    for(int i = 0; i < array.length; i++){
+        int total = 0;
+        for(int j = 0; j < array.length; j++){
+            if(array[j] != 0){
+                total += (array[j] * (Math.abs(j - i)));
+            }
+        }
+        res = Math.min(res, total);
+    }
+    return res;
+}

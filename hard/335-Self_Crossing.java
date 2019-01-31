@@ -41,14 +41,14 @@ Explanation: self crossing
 **/
 
 public boolean isSelfCrossing(int[] x) {
-        for(int i = 3; i < x.length; i++){
-            if(x[i - 1] <= x[i - 3] && x[i - 2] <= x[i]){
-                return true;
-            }else if(i >= 4 && x[i - 1] == x[i - 3] && x[i] >= x[i - 2] - x[i - 4]){
-                return true;
-            }else if(i >= 5 && x[i - 2] >= x[i - 4] && x[i - 1] <= x[i - 3] && (x[i] >= x[i - 2] - x[i - 4]) && (x[i - 1] >= x[i - 3] - x[i - 5])){
-                return true;
-            }
+    for(int i = 3; i < x.length; i++){
+        if(x[i - 1] <= x[i - 3] && x[i - 2] <= x[i]){
+            return true;
+        }else if(i >= 4 && x[i - 1] == x[i - 3] && x[i] >= x[i - 2] - x[i - 4]){
+            return true;
+        }else if(i >= 5 && x[i - 2] >= x[i - 4] && x[i - 1] <= x[i - 3] && (x[i] >= x[i - 2] - x[i - 4]) && (x[i - 1] >= x[i - 3] - x[i - 5])){
+            return true;
         }
-        return false;
     }
+    return false;
+}

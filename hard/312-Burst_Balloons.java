@@ -26,21 +26,21 @@ dp[i][j] = nums[x] * nums[k] * nums[y] + dp[x+1][k-1] + dp[k+1][y-1]
 **/
 
 public int maxCoins(int[] nums) {
-        if(nums.length == 0) return 0;
-        int n = nums.length;
-        int[][] dp = new int[n][n];
-        for(int i = n - 1; i >= 0; i--){
-            for(int j = i; j < n; j++){
-                int max = Integer.MIN_VALUE;
-                for(int k = i; k <= j; k++){
-                    max = Math.max(max,
-                                   nums[k] * (i == 0 ? 1 : nums[i - 1]) * (j == n - 1 ? 1 : nums[j + 1])
-                                   + (k > i ? dp[i][k - 1] : 0)
-                                   + (k < j ? dp[k+1][j] : 0)
-                                  );
-                }
-                dp[i][j] = max;
+    if(nums.length == 0) return 0;
+    int n = nums.length;
+    int[][] dp = new int[n][n];
+    for(int i = n - 1; i >= 0; i--){
+        for(int j = i; j < n; j++){
+            int max = Integer.MIN_VALUE;
+            for(int k = i; k <= j; k++){
+                max = Math.max(max,
+                               nums[k] * (i == 0 ? 1 : nums[i - 1]) * (j == n - 1 ? 1 : nums[j + 1])
+                               + (k > i ? dp[i][k - 1] : 0)
+                               + (k < j ? dp[k+1][j] : 0)
+                              );
             }
+            dp[i][j] = max;
         }
-        return dp[0][n - 1];
     }
+    return dp[0][n - 1];
+}

@@ -27,39 +27,39 @@ Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is n
 **/
 
 public int longestIncreasingPath(int[][] matrix) {
-        if(matrix.length == 0 || matrix[0].length == 0) return 0;
-        int max = 1;
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int[][] len = new int[m][n];
-        for(int i = 0; i < m; i++){
-            Arrays.fill(len[i], 1);
+    if(matrix.length == 0 || matrix[0].length == 0) return 0;
+    int max = 1;
+    int m = matrix.length;
+    int n = matrix[0].length;
+    int[][] len = new int[m][n];
+    for(int i = 0; i < m; i++){
+        Arrays.fill(len[i], 1);
+    }
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            if(len[i][j] == 1){
+                len[i][j] = Math.max(len[i][j], dfs(i, j, matrix, len));
+            }
+            max = Math.max(max, len[i][j]);
         }
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                if(len[i][j] == 1){
-                    len[i][j] = Math.max(len[i][j], dfs(i, j, matrix, len));
-                }
-                max = Math.max(max, len[i][j]);
+    }
+    return max;
+}
+public int dfs(int i, int j, int[][] matrix, int[][] len){
+    if(len[i][j] > 1){
+        return len[i][j];
+    }
+    int[] dirs = new int[]{0, 1, 0, -1, 1, 0, -1, 0};
+    int step = 1;
+    for(int d = 0; d < dirs.length; d += 2){
+        int row = i + dirs[d];
+        int col = j + dirs[d + 1];
+        if(row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length){
+            if(matrix[row][col] > matrix[i][j]){
+                step = Math.max(step, 1 + dfs(row, col, matrix, len));
             }
         }
-        return max;
     }
-    public int dfs(int i, int j, int[][] matrix, int[][] len){
-        if(len[i][j] > 1){
-            return len[i][j];
-        }
-        int[] dirs = new int[]{0, 1, 0, -1, 1, 0, -1, 0};
-        int step = 1;
-        for(int d = 0; d < dirs.length; d += 2){
-            int row = i + dirs[d];
-            int col = j + dirs[d + 1];
-            if(row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length){
-                if(matrix[row][col] > matrix[i][j]){
-                    step = Math.max(step, 1 + dfs(row, col, matrix, len));
-                }
-            }
-        }
-        len[i][j] = step;
-        return step;
-    }
+    len[i][j] = step;
+    return step;
+}

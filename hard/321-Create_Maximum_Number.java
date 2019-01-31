@@ -30,60 +30,60 @@ Output:
 **/
 
 public int[] maxNumber(int[] nums1, int[] nums2, int k) {
-        int m = nums1.length;
-        int n = nums2.length;
-        int[] res = new int[k];
-        for(int i = 0; i <= Math.min(m, k); i++){
-            int[] A = pick(nums1, i);
-            int[] B = pick(nums2, Math.min(k - i, n));
-            if(A.length + B.length == k){
-                int[] tmp = merge(A, B);
-                if(check(tmp, 0, res, 0)){
-                    res = tmp;
-                }
+    int m = nums1.length;
+    int n = nums2.length;
+    int[] res = new int[k];
+    for(int i = 0; i <= Math.min(m, k); i++){
+        int[] A = pick(nums1, i);
+        int[] B = pick(nums2, Math.min(k - i, n));
+        if(A.length + B.length == k){
+            int[] tmp = merge(A, B);
+            if(check(tmp, 0, res, 0)){
+                res = tmp;
             }
         }
-        return res;
     }
-    public int[] pick(int[] nums, int k){
-        int[] res = new int[k];
-        int index = 0;
-        for(int i = 0; i < nums.length; i++){
-            while(nums.length - i + index > k && index > 0 && nums[i] > res[index - 1]){
-                index--;
-            }
-            if(index >= 0 && index < k){
-                res[index++] = nums[i];
-            }
+    return res;
+}
+public int[] pick(int[] nums, int k){
+    int[] res = new int[k];
+    int index = 0;
+    for(int i = 0; i < nums.length; i++){
+        while(nums.length - i + index > k && index > 0 && nums[i] > res[index - 1]){
+            index--;
         }
-        return res;
+        if(index >= 0 && index < k){
+            res[index++] = nums[i];
+        }
     }
-    public int[] merge(int[] A, int[] B){
-        int m = A.length;
-        int n = B.length;
-        int[] res = new int[m + n];
-        int index = 0;
-        int i = 0;
-        int j = 0;
-        while(index < m + n){
-            if(i < m && j < n){
-                if(check(A, i, B, j)){
-                    res[index++] = A[i++];
-                }else{
-                    res[index++] = B[j++];
-                }
-            }else if(i < m){
+    return res;
+}
+public int[] merge(int[] A, int[] B){
+    int m = A.length;
+    int n = B.length;
+    int[] res = new int[m + n];
+    int index = 0;
+    int i = 0;
+    int j = 0;
+    while(index < m + n){
+        if(i < m && j < n){
+            if(check(A, i, B, j)){
                 res[index++] = A[i++];
             }else{
                 res[index++] = B[j++];
             }
+        }else if(i < m){
+            res[index++] = A[i++];
+        }else{
+            res[index++] = B[j++];
         }
-        return res;
     }
-    public boolean check(int[] A, int x, int[] B, int y){
-        while(x < A.length && y < B.length && A[x] == B[y]){
-            x++;
-            y++;
-        }
-        return y == B.length || (x < A.length && A[x] > B[y]);
+    return res;
+}
+public boolean check(int[] A, int x, int[] B, int y){
+    while(x < A.length && y < B.length && A[x] == B[y]){
+        x++;
+        y++;
     }
+    return y == B.length || (x < A.length && A[x] > B[y]);
+}

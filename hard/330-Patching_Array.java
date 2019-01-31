@@ -1,5 +1,6 @@
 /**
-Given a sorted positive integer array nums and an integer n, add/patch elements to the array such that any number in range [1, n] inclusive can be formed by the sum of some elements in the array. Return the minimum number of patches required.
+Given a sorted positive integer array nums and an integer n, add/patch elements to the array such that any number in range [1, n] inclusive can be formed by the sum of some elements in the array.
+Return the minimum number of patches required.
 
 Example 1:
 
@@ -22,17 +23,17 @@ Output: 0
 **/
 
 public int minPatches(int[] nums, int n) {
-        int count = 0;
-        long edge = 0;
-        int index = 0;
-        while(edge < n){
-            if(index >= nums.length || edge < nums[index] - 1){
-                count++;
-                edge += edge;
-                edge += 1;
-            }else{
-                edge += nums[index++];
-            }
+    int count = 0;
+    long edge = 0;
+    int index = 0;
+    while(edge < n){
+        if(index >= nums.length || edge < nums[index] - 1){
+            count++;
+            edge += edge;
+            edge += 1;
+        }else{
+            edge += nums[index++];
         }
-        return count;
     }
+    return count;
+}

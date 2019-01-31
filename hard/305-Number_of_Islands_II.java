@@ -42,44 +42,44 @@ Can you do it in time complexity O(k log mn), where k is the length of the posit
 **/
 
 public List<Integer> numIslands2(int m, int n, int[][] positions) {
-        List<Integer> res = new ArrayList<>();
-        int[] parent = new int[m * n];
-        Arrays.fill(parent, -1);
-        int total = 0;
-        for(int i = 0; i < positions.length; i++){
-            int x = positions[i][0];
-            int y = positions[i][1];
-            int cur = x * n + y;
-            if(parent[cur] == -1){
-                parent[cur] = cur;
-                total++;
-            }
-            int[] dir = {0, 1, 0, -1, 1, 0, -1, 0};
-            for(int d = 0; d < dir.length; d += 2){
-                int row = x + dir[d];
-                int col = y + dir[d + 1];
-                if(row < 0 || row >= m || col < 0 || col >= n) continue;
-                int neighbor = row * n + col;
-                int rootNeighbor = getRoot(parent, neighbor);
-                int rootCur = getRoot(parent, cur);
-                if(rootNeighbor != -1 && rootCur != rootNeighbor){
-                    total--;
-                    setRoot(parent, rootCur, rootNeighbor);
-                }
-            }
-            res.add(total);
+    List<Integer> res = new ArrayList<>();
+    int[] parent = new int[m * n];
+    Arrays.fill(parent, -1);
+    int total = 0;
+    for(int i = 0; i < positions.length; i++){
+        int x = positions[i][0];
+        int y = positions[i][1];
+        int cur = x * n + y;
+        if(parent[cur] == -1){
+            parent[cur] = cur;
+            total++;
         }
-        return res;
-    }
-    public int getRoot(int[] parent, int index){
-        if(parent[index] == -1) return -1;
-        while(parent[index] != index){
-            index = parent[index];
+        int[] dir = {0, 1, 0, -1, 1, 0, -1, 0};
+        for(int d = 0; d < dir.length; d += 2){
+            int row = x + dir[d];
+            int col = y + dir[d + 1];
+            if(row < 0 || row >= m || col < 0 || col >= n) continue;
+            int neighbor = row * n + col;
+            int rootNeighbor = getRoot(parent, neighbor);
+            int rootCur = getRoot(parent, cur);
+            if(rootNeighbor != -1 && rootCur != rootNeighbor){
+                total--;
+                setRoot(parent, rootCur, rootNeighbor);
+            }
         }
-        return index;
+        res.add(total);
     }
-    public void setRoot(int[] parent, int i, int j){
-        if(i == j) return;
-        else if(i < j) parent[j] = i;
-        else parent[i] = j;
+    return res;
+}
+public int getRoot(int[] parent, int index){
+    if(parent[index] == -1) return -1;
+    while(parent[index] != index){
+        index = parent[index];
     }
+    return index;
+}
+public void setRoot(int[] parent, int i, int j){
+    if(i == j) return;
+    else if(i < j) parent[j] = i;
+    else parent[i] = j;
+}
